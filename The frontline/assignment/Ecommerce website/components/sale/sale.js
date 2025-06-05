@@ -1,9 +1,14 @@
 const flashSale = document.getElementById('flash-sale');
 
 const messages = [
-  'Flash Sale Weekend. Up to <span style="font-weight: bold;">50%</span> off <a href="#">Learn more</a>',
-  'Flash Sale Weekend. Up to <span style="font-weight: bold;">70%</span> off <a href="#">Learn more</a>'
+  `<span class="main-text">Flash Sale Weekend. Up to <span style="font-weight: bold;">70%</span> off</span> 
+   <a href="#" class="learn-more">Learn more</a>`
 ];
+
+const flashSaleElement = document.getElementById('flash-sale');
+flashSaleElement.innerHTML = `<div class="flash-slide">${messages[0]}</div>`;
+
+
 
 let index = 0;
 

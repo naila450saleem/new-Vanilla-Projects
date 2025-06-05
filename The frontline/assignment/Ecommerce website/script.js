@@ -1,8 +1,8 @@
 const flashSale = document.getElementById('flash-sale');
 
 const messages = [
-  'Flash Sale Weekend. Up to <span style="font-weight: bold;">50%</span> off <a href="#">Learn more</a>',
-  'Flash Sale Weekend. Up to <span style="font-weight: bold;">70%</span> off <a href="#">Learn more</a>'
+  `<span class="main-text">Flash Sale Weekend. Up to <span style="font-weight: bold;">70%</span> off</span> 
+   <a href="#" class="learn-more">Learn more</a>`
 ];
 
 let index = 0;
@@ -25,115 +25,164 @@ function showNextMessage() {
 showNextMessage();
 setInterval(showNextMessage, 3000);
 
+
+
+
 // navbar responsive //
   function toggleMenu() {
     const navLinks = document.querySelector('.nav-links');
     navLinks.classList.toggle('show');
   }
 
+ function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+  }
+
+
   // Signup
-  window.addEventListener("load", function () {
-  const overlay = document.getElementById("overlay");
-  const closeBtn = document.getElementById("closeBtn");
-  const noThanks = document.getElementById("noThanks");
-
-  overlay.style.display = "flex";
-
-  closeBtn.addEventListener("click", function () {
-    overlay.style.display = "none";
-  });
-
-  noThanks.addEventListener("click", function (e) {
-    e.preventDefault();
-    overlay.style.display = "none";
-  });
-});
+  const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    
+    closeBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
+    });
+    
+    document.getElementById('noThanks').addEventListener('click', (e) => {
+      e.preventDefault();
+      overlay.style.display = 'none';
+    });
 
 
 
 
-// Slider
+// Slider Data
+// Slider Data with separate mobile images
 const slidesData = [
   {
     image: 'assets/frame1.jpg',
+    mobileImage: 'assets/frame-1.jpg',
     titleSmall: 'Super Beauty',
     titleBig: 'Basic Care and Guidelines'
   },
   {
     image: 'assets/frame2.jpg',
-    titleSmall: 'Healty Skin',
-    titleBig: 'Essential Care And Tips'
+    mobileImage: 'assets/frame-2.jpg',
+    titleSmall: 'Healthy Skin',
+    titleBig: 'Essential Care and Tips'
   }
 ];
 
-// Generate HTML for slides
+// Get containers
 const slidesContainer = document.getElementById('slidesContainer');
+const dotsContainer = document.getElementById('dotsContainer');
+const mobileSlidesContainer = document.getElementById('mobileSlidesContainer');
+const mobileDotsContainer = document.getElementById('mobileDotsContainer');
 
+// Get controls
+const desktopPrevBtn = document.querySelector('.desktop-controls .prev');
+const desktopNextBtn = document.querySelector('.desktop-controls .next');
+const mobilePrevBtn = document.querySelector('.mobile-controls .prev');
+const mobileNextBtn = document.querySelector('.mobile-controls .next');
+
+// Track current index
+let currentIndexDesktop = 0;
+let currentIndexMobile = 0;
+
+// Generate desktop slides and dots
 slidesData.forEach((slide, index) => {
+  const [first, second] = slide.titleBig.split(' and ');
+
   const slideDiv = document.createElement('div');
-  slideDiv.classList.add('slide');
-  if (index === 0) slideDiv.classList.add('active');
+  slideDiv.className = `slide${index === 0 ? ' active' : ''}`;
   slideDiv.style.backgroundImage = `url('${slide.image}')`;
 
   slideDiv.innerHTML = `
     <div class="text-content">
       <h5>${slide.titleSmall}</h5>
-      ${(() => {
-        const [first, second] = slide.titleBig.split(' and ');
-        return `
-          <h2>
-            <span class="line1">${first}</span>
-            <span class="line2"> and ${second}</span>
-          </h2>
-        `;
-      })()}
+      <h2>
+        <span class="line1">${first}</span>
+        <span class="line2">${second ? 'and ' + second : ''}</span>
+      </h2>
       <button>Explore Now</button>
     </div>
   `;
-
   slidesContainer.appendChild(slideDiv);
-});
 
-
-const dotsContainer = document.getElementById('dotsContainer');
-
-// Generate dots
-slidesData.forEach((_, index) => {
   const dot = document.createElement('div');
-  dot.classList.add('dot');
-  if (index === 0) dot.classList.add('active');
-  dot.addEventListener('mouseenter', () => {
-    currentIndex = index;
-    showSlide(currentIndex);
-  });
+  dot.className = `dot${index === 0 ? ' active' : ''}`;
+  dot.addEventListener('mouseenter', () => showSlide(index, 'desktop'));
   dotsContainer.appendChild(dot);
 });
 
+// Generate mobile slides and dots
+slidesData.forEach((slide, index) => {
+  const [first, second] = slide.titleBig.split(' and ');
+  const mobileSlide = document.createElement('div');
+  mobileSlide.className = `mobile-slide${index === 0 ? ' active' : ''}`;
 
-// Slider controls
-let currentIndex = 0;
-const allSlides = document.querySelectorAll('.slide');
-const prevBtn = document.querySelector('.prev');
-const nextBtn = document.querySelector('.next');
+  const imageSrc = slide.mobileImage || slide.image;
 
-function showSlide(index) {
-  allSlides.forEach(slide => slide.classList.remove('active'));
-  allSlides[index].classList.add('active');
+  mobileSlide.innerHTML = `
+    <img src="${imageSrc}" alt="${slide.titleSmall}">
+    <div class="text-content">
+      <h5>${slide.titleSmall}</h5>
+      <h2>
+        <span class="line1">${first}</span>
+        <span class="line2">${second ? 'and ' + second : ''}</span>
+      </h2>
+      <button>Explore Now</button>
+    </div>
+  `;
+  mobileSlidesContainer.appendChild(mobileSlide);
 
-  const allDots = document.querySelectorAll('.dot');
-  allDots.forEach(dot => dot.classList.remove('active'));
-  allDots[index].classList.add('active');
+  const mobileDot = document.createElement('div');
+  mobileDot.className = `mobile-dot${index === 0 ? ' active' : ''}`;
+  mobileDot.addEventListener('mouseenter', () => showSlide(index, 'mobile'));
+  mobileDotsContainer.appendChild(mobileDot);
+});
+
+// Show slide function
+function showSlide(index, device) {
+  if (device === 'desktop') {
+    const allSlides = document.querySelectorAll('.slide');
+    const allDots = document.querySelectorAll('.dot');
+    allSlides.forEach(slide => slide.classList.remove('active'));
+    allDots.forEach(dot => dot.classList.remove('active'));
+    allSlides[index].classList.add('active');
+    allDots[index].classList.add('active');
+    currentIndexDesktop = index;
+  } else if (device === 'mobile') {
+    const allSlides = document.querySelectorAll('.mobile-slide');
+    const allDots = document.querySelectorAll('.mobile-dot');
+    allSlides.forEach(slide => slide.classList.remove('active'));
+    allDots.forEach(dot => dot.classList.remove('active'));
+    allSlides[index].classList.add('active');
+    allDots[index].classList.add('active');
+    currentIndexMobile = index;
+  }
 }
 
-prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + allSlides.length) % allSlides.length;
-  showSlide(currentIndex);
+// Controls
+desktopPrevBtn.addEventListener('click', () => {
+  const prevIndex = (currentIndexDesktop - 1 + slidesData.length) % slidesData.length;
+  showSlide(prevIndex, 'desktop');
 });
 
-nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % allSlides.length;
-  showSlide(currentIndex);
+desktopNextBtn.addEventListener('click', () => {
+  const nextIndex = (currentIndexDesktop + 1) % slidesData.length;
+  showSlide(nextIndex, 'desktop');
 });
+
+mobilePrevBtn.addEventListener('click', () => {
+  const prevIndex = (currentIndexMobile - 1 + slidesData.length) % slidesData.length;
+  showSlide(prevIndex, 'mobile');
+});
+
+mobileNextBtn.addEventListener('click', () => {
+  const nextIndex = (currentIndexMobile + 1) % slidesData.length;
+  showSlide(nextIndex, 'mobile');
+});
+
 
 
 // Shop By Category 

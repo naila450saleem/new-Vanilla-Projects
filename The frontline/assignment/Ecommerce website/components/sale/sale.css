@@ -45,14 +45,40 @@ body {
   animation: slideLeft 0.5s forwards;
 }
 
+
+
+.flash-sale a {
+  color: var(--link-color);
+  text-decoration: none;
+  margin-left: 5px;
+}
+
 @keyframes slideLeft {
   to {
     transform: translateX(0%);
   }
 }
 
-.flash-sale a {
-  color: var(--link-color);
-  text-decoration: none;
-  margin-left: 5px;
+/* ✅ Responsive for mobile */
+@media (max-width: 600px) {
+  .flash-sale-container {
+    height: 60px;
+  }
+
+  .flash-slide {
+    font-size: var(--font-size-md);
+    line-height: 1.3;
+    padding-top: 7px;
+  }
+
+  .flash-slide .main-text {
+    display: block;
+    font-weight: normal;
+  }
+
+  .flash-slide .learn-more {
+    display: block;
+    text-align: center;
+    margin-top: 3px;
+  }
 }
