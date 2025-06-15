@@ -1,50 +1,69 @@
 :root {
+  /* ---------------- Fonts ---------------- */
+  --font: 'Segoe UI', sans-serif;
+  --font-family: 'Segoe UI', sans-serif;  /* Primary font */
+  --font-heading-family: "Playfair Display", serif;
+
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 24px;
+  --font-size-base: 16px;
+
+  --font-size-heading: 2rem;
+  --font-size-heading-small: 1.5rem;
+  --font-size-card-title: 1.3rem;
+  --font-size-card-subtitle: 0.95rem;
+  --font-size-button: 1.2rem;
+
+  /* ---------------- Colors ---------------- */
   --primary: #121212;
   --secondary: #555;
   --highlight: #ff5a00;
   --bg: #fff;
-  --white: #fff;
-  --font: 'Segoe UI', sans-serif;
-  --text-color: #fff;
-  --gray: #777;
-  --hover-bg: #f2f2f2;
-  --blue: #007bff;
-  --green: #28a745;
-  --black: #000;
   --bg-white: #fff;
-  --color-text: #000;
-
-  --marquee-speed: 30s;
-
-   --font: 'Segoe UI', sans-serif;
-  --font-family: Arial, sans-serif;
-  --font-heading-family: "Playfair Display", serif;
-  --action-color: #b4d6bd;
-  --link-color: #333;
-  --navbar-bg: white;
-  --border-color: #ddd;
-  --hover-underline-color: black;
-  --icon-badge-bg: black;
-  --icon-badge-color: white;
-  --nav-gap: 30px;
-  --flash-sale-height: 30px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 24px;
-  --padding-sm: 5px;
-  --padding-md: 15px;
-  --padding-lg: 30px;
-
   --bg-color: #0d1c1c;
   --accent-color: #22c1c3;
   --line-color: #1a2e2e;
-  --font-size-base: 16px;
+  --white: #fff;
+  --black: #000;
+  --gray: #777;
+  --blue: #007bff;
+  --green: #28a745;
+  --text-color: #fff;       /* for dark backgrounds */
+  --color-text: #000;       /* for light backgrounds */
+  --link-color: #333;
+  --hover-bg: #f2f2f2;
+  --hover-underline-color: black;
+  --navbar-bg: white;
+  --color-overlay: rgba(0, 0, 0, 0.2);
+  --color-shadow: rgba(0, 0, 0, 0.1);
+
+  /* ---------------- Spacing & Sizing ---------------- */
+  --padding-sm: 5px;
+  --padding-md: 15px;
+  --padding-lg: 30px;
+  --padding-button: 5px 10px;
+  --padding-section: 60px 5%;
   --spacing: 1rem;
+  --gap-grid: 25px;
+  --nav-gap: 30px;
+  --margin-bottom-large: 20px;
+  --margin-top-small: 10px;
+
+  --flash-sale-height: 30px;
+  --max-width-container: 2000px;
+  --min-width-card: 300px;
+  --height-card: 450px;
+  --height-card-mobile: 160px;
+
+  /* ---------------- Other ---------------- */
+  --marquee-speed: 30s;
+  --action-color: #b4d6bd;
+  --icon-badge-bg: black;
+  --icon-badge-color: white;
+  --box-shadow: 0 2px 6px var(--color-shadow);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading-family);
-}
 
 
 body {
@@ -57,8 +76,9 @@ body {
   background-color: var(--action-color, orange);
   overflow: hidden;
   height: var(--flash-sale-height, 40px); /* fallback if variable is not set */
-  position: sticky; /* or fixed if needed */
-  top: 0;
+  position: fixed;     /* ⬅️ Add this line */
+    top: 0;              /* ⬅️ Stick to top */
+    width: 100%; 
   z-index: 999; /* high enough to stay on top */
 }
 
@@ -100,9 +120,14 @@ body {
 
 /*Navbar*/
 /* Hide hamburger icon by default (only for desktop) */
+
 .menu-toggle,
 .mobile-left {
   display: none;
+}
+
+.menu-divider {
+  margin-top: 0; 
 }
 
 .navbar {
@@ -119,6 +144,7 @@ body {
   padding-left: 5%;
   padding-right: 5%;
   border-bottom: 1px solid var(--border-color);
+ 
 }
 
 .nav-links {
@@ -138,7 +164,8 @@ body {
 .top-left select {
   margin-right: 15px;
   padding: var(--padding-sm);
-  border: 1px solid #ccc;
+  border: none;
+  font-size: 16px;
 }
 
 .logo {
@@ -147,6 +174,7 @@ body {
   gap: 10px;
   font-size: var(--font-size-lg);
   font-weight: bold;
+ margin-left: 20px;
 }
 
 .logo img {
@@ -158,13 +186,8 @@ body {
   gap: 5px;
   align-items: center;
   justify-content: center;
-  padding-right: 12%;
   /* Add this to avoid overflow cutting off badges */
   position: relative;
-  /* or you can add min-width */
-  min-width: 200px;
-   
-  
 }
 
 .icon {
@@ -239,28 +262,32 @@ nav ul li a {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); /* subtle shadow */
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
 
-/* -------------------- Mobile View -------------------- */
+* {
+  box-sizing: border-box;
+}
+
+/* -------------------- Responsive: Mobile View -------------------- */
 @media (max-width: 768px) {
   .top-left {
     display: none;
   }
 
-  .navbar {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%;
-  }
-
+  .menu-toggle,
   .mobile-left {
     display: block;
+    font-size: 24px;
+    cursor: pointer;
   }
 
-  .menu-toggle {
-    display: block;
-    font-size: 26px;
-    cursor: pointer;
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 6%;
   }
 
   .logo {
@@ -270,35 +297,135 @@ nav ul li a {
   }
 
   .logo img {
-    max-width: 160px;
+    max-width: 90px;
+    height: auto;
+    padding-top: 4%;
   }
 
   .icons {
     display: flex;
-    gap: 10px;
+    gap: 5px;
+    padding-top: 3%;
   }
 
+  /* Show only selected icons on mobile (e.g. 🔍 and 🛍️) */
+  .icons .icon:not(:nth-child(1)):not(:nth-child(4)) {
+    display: none;
+  }
   .nav-links {
     display: none;
-    width: 100%;
-    background-color: white;
-    border-top: 1px solid #ccc;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80vw;
+    max-width: 300px;
+    background: #fff;
+    z-index: 2000; /* ⬅️ Lower than navbar and flash sale */
+    padding-top: 60px;
+    padding-bottom: 40px;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
 
-  .nav-links.show {
-    display: block;
+  .nav-links.active {
+    display: flex;
+    transform: translateX(0%);
+    padding-top:0;
+
   }
+
+  .menu-header{
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: #f5f5f5;
+  margin-bottom: 4px;
+  }
+.menu-logo {
+  width: 100px;         /* size as needed */
+  height: auto;
+  object-fit: contain;
+}
+
+/* Close button */
+.close-btn {
+  font-size: 50px;       /* adjust so it matches logo height */
+  cursor: pointer;
+  color: black;
+  background: none;
+  border: none;
+  padding: 5px;
+  line-height: 1;
+}
+
 
   .nav-links ul {
     flex-direction: column;
-    padding: 10px 20px;
-    margin: 0;
-    list-style: none;
+    gap: 10px;
+   padding: 0;
+  margin: 0;
+  padding-top: 5px;
+    text-align: left;
+    font-size: 15px;
   }
 
   .nav-links ul li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* light black line */
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  padding-left: 20px;
+}
+
+  .nav-links ul li:hover::after {
+    display: none;
+  }
+  
+  .mobile-social-icons {
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  gap: 10px;                /* gap between icons */
+  margin-top: auto;         /* push to bottom inside flex column */
+  padding: 10px 0;   /* ↓ yahan 20px tha, ab 10px ya 5px rakh dein */
+  margin-bottom: 25px;          /* space above and below */
+}
+
+.mobile-social-icons i {
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.mobile-social-icons i:hover {
+  color: var(--highlight, orange); /* hover effect if you want */
+}
+
+.wrapper, .main-container {
+  overflow-x: hidden;
+}
+}
+
+/* Hide mobile nav on desktop */
+@media (min-width: 769px) {
+  .nav-link#navMenu {
+    display: none !important;
+  }
+.menu-header{
+  display: none;
+}
+.mobile-menu{
+  display: none;
+}
+ .mobile-social-icons{
+  display: none;
+ }
+ .mobile-login {
+    display: none;
   }
 }
 
@@ -309,7 +436,7 @@ nav ul li a {
   padding: 40px 0 20px;
   background-color: #f8f8f8;
   border-bottom: 1px solid #ddd;
-  padding-top: 8%;
+  padding-top: 13%;
   padding-bottom: 2.2%;
 }
 
@@ -323,6 +450,39 @@ nav ul li a {
   color: var(--secondary);
   margin: 0;
 }
+
+/* Medium Devices (Tablets) */
+@media (max-width: 991px) {
+  .about-header {
+    padding-top: 10%;
+    padding-bottom: 2.5%;
+  }
+
+  .about-header h1 {
+    font-size: 30px;
+  }
+
+  .about-header p {
+    font-size: 16px;
+  }
+}
+
+/* Small Devices (Mobiles) */
+@media (max-width: 767px) {
+  .about-header {
+    padding-top: 40%;
+    padding-bottom: 6%;
+  }
+
+  .about-header h1 {
+    font-size: 24px;
+  }
+
+  .about-header p {
+    font-size: 14px;
+  }
+}
+
 
 /* Two Section*/
 
@@ -372,6 +532,42 @@ padding-left: 20px;
 .image-container img {
   max-width: 100%;
   height: auto;
+}
+
+/* ✅ Mobile View: Stack with Image First */
+@media (max-width: 767px) {
+  .two-container-section {
+    flex-direction: column;
+    padding-top: 10%;
+  }
+
+  .image-container {
+    order: 1;
+  }
+
+  .content {
+    order: 2;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .heading,
+  .description,
+  .description-1 {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .description,
+  .description-1 {
+    font-size: 0.9rem;
+  }
 }
 
 
@@ -424,6 +620,20 @@ padding-left: 20px;
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* ✅ Responsive Tweaks */
+@media (max-width: 768px) {
+  .ticker-track span,
+  .ticker-text {
+    font-size: 1.4rem;
+    margin: 0 1rem;
+  }
+
+  /* Faster animation on mobile (overwrite variable or directly apply) */
+  .ticker-track {
+    animation: scroll 4s linear infinite;
   }
 }
 
@@ -522,6 +732,24 @@ padding-left: 20px;
   color: black;
 }
 
+@media (max-width: 768px) {
+  .features-section {
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: none;
+  }
+
+  .feature-box {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-box {
+    width: 400px !important;
+  }
+}
+
 /*video section*/
 .video-bg-section {
   position: relative;
@@ -614,43 +842,80 @@ padding-left: 20px;
   user-select: none;
 }
 
-/*==== Team Section =====*/
-:root {
-  /* Fonts */
-  --font-family: 'Segoe UI', sans-serif;
-  --font-size-heading: 2rem;
-  --font-size-heading-small: 1.5rem;
-  --font-size-card-title: 1.3rem;
-  --font-size-card-subtitle: 0.95rem;
-  --font-size-button: 1.2rem;
+/* ---------- Responsive Styles ---------- */
+@media (max-width: 768px) {
+  /* Adjust background video iframe */
+  .background-video iframe {
+    height: 100vh;
+    width: 100vw;
+  }
 
-  /* Colors */
-  --color-text: black;
-  --color-overlay: rgba(0, 0, 0, 0.2);
-  --color-shadow: rgba(0, 0, 0, 0.1);
-
-  /* Spacing */
-  --padding-section: 60px 5%;
-  --gap-grid: 25px;
-  --margin-bottom-large: 20px;
-  --margin-top-small: 10px;
-  --padding-button: 5px 10px;
-
-  /* Size */
-  --max-width-container: 2000px;
-  --min-width-card: 300px;
-  --height-card: 450px;
-  --height-card-mobile: 160px;
-
-  /* Others */
-  --box-shadow: 0 2px 6px var(--color-shadow);
+  .video-bg-section {
+  position: relative;
+  width: 90%;           /* 5% left + 5% right */
+  height: 200px;         /* 100vh - 5% top padding (approx) */
+  margin: 0 auto;       /* center the 90% width */
+  overflow: hidden;
 }
+ .overlay-content {
+    align-items: flex-start; /* 👈 top pe le aayega */
+    padding-top: 2%;        /* optional: top space dena ho to */ 
+  }
+
+  /* Foreground image height for smaller screens */
+  .foreground-image {
+    height: 300px;
+  }
+
+  /* Play icon smaller */
+  .play-icon {
+    font-size: 50px;
+   padding-top: 20%;
+   
+  }
+
+  /* Modal adjustments */
+  .modal-content {
+    width: 95vw;
+    height: 40vh;
+  }
+
+  /* Close button size & position */
+  .close-btn {
+    font-size: 30px;
+    top: -30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .foreground-image {
+    height: 200px;
+  }
+
+  .play-icon {
+    font-size: 40px;
+  }
+
+  .modal-content {
+    height: 35vh;
+  }
+
+  .close-btn {
+    font-size: 28px;
+  }
+}
+
+
+
+/*==== Team Section =====*/
 
 /* Section Container */
 .category-section {
-  padding: var(--padding-section);
+padding-top: 0;
   max-width: var(--max-width-container);
   margin: auto;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .category-section h2 {
@@ -709,11 +974,13 @@ padding-left: 20px;
   margin: 0;
   font-size: var(--font-size-card-title);
   font-weight: lighter;
+
 }
 
 .category-card .info p {
   margin: 3px 0 0;
   font-size: var(--font-size-card-subtitle);
+  color: black;
 }
 
 /* Hover Overlay */
@@ -745,18 +1012,56 @@ padding-left: 20px;
   padding: var(--padding-button);
   margin-left: 10px;
   cursor: pointer;
+  border-radius: 50%;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .category-card img {
-    height: var(--height-card-mobile);
+  .category-row {
+    grid-template-columns: 1fr !important;
   }
 
-  .category-section h2 {
-    font-size: var(--font-size-heading-small);
+  .category-card {
+    min-width: 100% !important;
+    height: auto !important;
   }
+
+  .category-card img {
+    height: 350px !important;
+  }
+
+  .category-card .info {
+    top: auto !important;
+    bottom: 10px;
+    left: 10px;
+    right: auto;
+    color: #000;
+    position: absolute;
+    padding: 20px;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+ .nav-buttons {
+  margin: 30px auto; /* adds space above and below */
+  text-align: center; /* center the buttons */
+  margin-top: 0;
 }
+
+.nav-buttons button {
+  font-size: var(--font-size-button);
+  padding: var(--padding-button);
+  margin: 0 5px; /* horizontal spacing between buttons */
+  cursor: pointer;
+  border-radius: 50%; /* optional: to make buttons circular */
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+.category-section {
+padding-bottom: 5%;
+}
+}
+
+
 
 
 /*==== Subscribr CSS =====*/
@@ -822,6 +1127,58 @@ padding-left: 20px;
   cursor: pointer;
 }
 
+/*=============== Responsive Styles ===============*/
+
+/* Tablet View (<= 992px) */
+@media (max-width: 992px) {
+  .subscribe-content {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .subscribe-content h2 {
+    font-size: 2rem;
+  }
+
+  .subscribe-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .subscribe-form input {
+    font-size: 1rem;
+  }
+
+  .subscribe-form button {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile View (<= 576px) */
+@media (max-width: 576px) {
+  .subscribe-section {
+    padding: 60px 15px;
+    margin-top: 15px;
+  }
+
+  .subscribe-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .subscribe-form {
+    border-bottom: 1.5px solid var(--color-text);
+  }
+
+  .subscribe-form input {
+    font-size: 0.95rem;
+  }
+
+  .subscribe-form button {
+    font-size: 1.2rem;
+  }
+}
 
 
 /* ======= FOOTER CSS ======= */
@@ -932,23 +1289,70 @@ padding-left: 20px;
   font-size: 1.2rem;
 }
 
-/* Responsive */
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+.footer-container {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
   }
+
+   .footer,
+  .footer-container {
+    padding-top: 20px !important;
+    margin-top: 0 !important;
+  }
+
+.footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .footer-heading {
+  margin-top: 0.5rem;  /* or even 0 */
+  margin-bottom: 0.5rem;
+  padding: 0; /* optional if needed */
+}
 
   .social-icons {
-    margin-top: 10px;
+    margin-top: 0.5rem;
   }
 
-  .footer-form {
-    width: 100%;
+  .footer-column > *:not(.footer-heading) {
+    display: none;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
   }
 
-  .input-wrapper {
-    max-width: 100%;
+  .footer-heading.active + * {
+    display: block;
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .footer-heading.active ~ * {
+    display: block;
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    margin-bottom: 1rem;
+  }
+
+  .toggle-icon {
+    display: inline-block;
+  }
+
+  .footer-list {
+    display: none;
+  }
+
+  .footer-heading.active + .footer-list {
+    display: block;
   }
 }

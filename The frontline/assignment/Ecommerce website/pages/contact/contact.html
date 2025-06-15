@@ -3,7 +3,9 @@
 <head>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact</title>
   <link rel="stylesheet" href="contact.css">
 </head>
@@ -58,8 +60,12 @@
 </div>
   </header>
 
-  <!-- Navigation Links -->
+   <!-- Navigation Links -->
   <nav class="nav-links" id="navMenu">
+  <div class="menu-header">
+    <img src="../../assets/logo-1.avif" alt="Logo" class="menu-logo" />
+    <span class="close-btn" onclick="toggleMenu()">×</span>
+  </div>
     <ul>
       <li><a href="../../index.html">Home</a></li>
     <li><a href="../shop/shop.html">Shop</a></li>
@@ -67,8 +73,16 @@
     <li><a href="../blog/blog.html">Blog</a></li>
 <li><a href="#">pages</a></li>
  <li><a href="contact.html">Contact</a></li>
-
+ <li class="mobile-login">
+  <a href="#"><i class="fas fa-user"></i> Log in</a>
+ </li>
     </ul>
+<div class="mobile-social-icons">
+    <i class="fab fa-instagram"></i>
+    <i class="fab fa-x-twitter"></i>
+    <i class="fab fa-facebook-f"></i>
+    <i class="fab fa-pinterest-p"></i>
+  </div>
   </nav>
 
 <!-- Header Section -->
@@ -218,5 +232,7 @@
 
 
 <script src="contact.js"></script>
+
+
 </body>
 </html>

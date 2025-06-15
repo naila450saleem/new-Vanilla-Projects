@@ -26,6 +26,13 @@ showNextMessage();
 setInterval(showNextMessage, 3000);
 
 
+//Responsive//////////////////////////////////////
+
+function toggleMenu() {
+  const navLinks = document.querySelector('.nav-links');
+  navLinks.classList.toggle('active');
+}
+
 
 
 // navbar responsive //
@@ -40,17 +47,23 @@ setInterval(showNextMessage, 3000);
 
 
   // Signup
-  const overlay = document.getElementById('overlay');
-    const closeBtn = document.getElementById('closeBtn');
-    
-    closeBtn.addEventListener('click', () => {
-      overlay.style.display = 'none';
-    });
-    
-    document.getElementById('noThanks').addEventListener('click', (e) => {
-      e.preventDefault();
-      overlay.style.display = 'none';
-    });
+  window.addEventListener("load", function () {
+  const overlay = document.getElementById("overlay");
+  const closeBtn = document.getElementById("closeBtn");
+  const noThanks = document.getElementById("noThanks");
+
+  overlay.style.display = "flex";
+
+  closeBtn.addEventListener("click", function () {
+    overlay.style.display = "none";
+  });
+
+  noThanks.addEventListener("click", function (e) {
+    e.preventDefault();
+    overlay.style.display = "none";
+  });
+});
+
 
 
 
@@ -364,16 +377,45 @@ products.forEach((product) => {
 
 
 // Beauty 
-document.addEventListener("DOMContentLoaded", () => {
-  const section = document.querySelector(".beauty-section");
 
-  // Show after a short delay (simulate scroll or load animation)
+  document.addEventListener("DOMContentLoaded", () => {
+  const p = document.getElementById("beautyText");
+
+  // ✅ Step 1: Wrap second line in a <span>
+  const words = p.innerText.split(" ");
+  const cutoff = 13; // You can adjust word count
+  const line1 = words.slice(0, cutoff).join(" ");
+  const line2 = words.slice(cutoff).join(" ");
+  p.innerHTML = `${line1}<br><span class="indent-line">${line2}</span>`;
+
+  const beautyText = document.querySelector(".beauty-text");
+
+  // ✅ Step 2: Add optional fade-in on load
   setTimeout(() => {
-    section.classList.add("visible");
+    beautyText.classList.add("visible");
   }, 300);
+
+  // ✅ Step 3: Scroll-based color darkening
+  const updateTextColorOnScroll = () => {
+    const rect = beautyText.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (rect.top >= windowHeight || rect.bottom <= 0) return;
+
+    let visibleRatio = 1 - rect.top / windowHeight;
+    visibleRatio = Math.max(0, Math.min(visibleRatio, 1)); // clamp between 0 and 1
+
+    const shade = Math.round(204 - visibleRatio * (204 - 17));
+    beautyText.style.color = `rgb(${shade}, ${shade}, ${shade})`;
+  };
+
+  window.addEventListener("scroll", updateTextColorOnScroll);
+  window.addEventListener("resize", updateTextColorOnScroll);
+  updateTextColorOnScroll(); // call once on load
 });
 
-//Deal
+
+////////////////////////////////////////////////Deal/////////////////////////////////////////////////
 const deals = [
   {
     tag: "Deal of the Day!",
@@ -409,7 +451,7 @@ deals.forEach((deal) => {
 
 
 
-// Payment section
+////////////////////////////////////////////// Payment section /////////////////////////////////////////////////
 const features = [
   {
     icon: "🧴",
@@ -447,7 +489,7 @@ features.forEach(item => {
   section.appendChild(box);
 });
 
-//Hero
+//////////////////////////////////////////////////Hero///////////////////////////////////////////////////
 const heroSection = document.getElementById("hero-section");
 
 heroSection.innerHTML = `

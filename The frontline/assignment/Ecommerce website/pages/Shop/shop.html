@@ -4,20 +4,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop</title>
   <link rel="stylesheet" href="shop.css">
 </head>
 <body>
 
   <!-- Flash Sale Banner -->
-  <div class="flash-sale-container">
+  <div class="flash-sale-container" id="flashSale">
   <div class="flash-sale" id="flash-sale">
     <div class="flash-slide">Flash Sale Weekend. Up to <span style="font-weight: bold;">50%</span> off <a href="#">Learn more</a></div>
   </div>
 </div>
 
 <!-- Navbar -->
-  <header class="navbar">
+  <header class="navbar" id="mainNavbar">
 <div class="mobile-left">
     <span class="menu-toggle" onclick="toggleMenu()">☰</span>
   </div>
@@ -58,18 +59,38 @@
 </div>
   </header>
 
+ 
   <!-- Navigation Links -->
-  <nav class="nav-links" id="navMenu">
-    <ul>
-          <li><a href="../../index.html">Home</a></li>
+<nav class="nav-links" id="navMenu">
+  <div class="menu-header">
+    <img src="../../assets/logo-1.avif" alt="Logo" class="menu-logo" />
+    <span class="close-btn" onclick="toggleMenu()">×</span>
+  </div>
+
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
     <li><a href="shop.html">Shop</a></li>
     <li><a href="../about/about.html">About us</a></li>
     <li><a href="../blog/blog.html">Blog</a></li>
-    <li><a href="#">pages</a></li>
+    <li><a href="#">Pages</a></li>
     <li><a href="../contact/contact.html">Contact</a></li>
+    <li class="mobile-login">
+  <a href="#"><i class="fas fa-user"></i> Log in</a>
+</li>
+  </ul>
 
-    </ul>
-  </nav>
+    <div class="mobile-social-icons">
+    <i class="fab fa-instagram"></i>
+    <i class="fab fa-x-twitter"></i>
+    <i class="fab fa-facebook-f"></i>
+    <i class="fab fa-pinterest-p"></i>
+  </div>
+</nav>
+ 
+
+
+
+
 
 <!-- Header Section -->
 <header class="product-header">

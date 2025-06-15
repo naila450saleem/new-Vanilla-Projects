@@ -1,3 +1,15 @@
+//Responsive//////////////////////////////////////
+
+function toggleMenu() {
+  const navLinks = document.querySelector('.nav-links');
+  navLinks.classList.toggle('active');
+}
+
+
+
+
+
+
 const gridViewBtn = document.getElementById("gridView");
 const listViewBtn = document.getElementById("listView");
 const featuredSection = document.getElementById("featuredProducts");

@@ -6,6 +6,7 @@
 
 
   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> Blog</title>
   <link rel="stylesheet" href="blog.css">
 </head>
@@ -62,6 +63,10 @@
 
   <!-- Navigation Links -->
   <nav class="nav-links" id="navMenu">
+  <div class="menu-header">
+    <img src="../../assets/logo-1.avif" alt="Logo" class="menu-logo" />
+    <span class="close-btn" onclick="toggleMenu()">×</span>
+  </div>
     <ul>
       <li><a href="../../index.html">Home</a></li>
     <li><a href="../shop/shop.html">Shop</a></li>
@@ -69,13 +74,18 @@
     <li><a href="blog.html">Blog</a></li>
 <li><a href="#">pages</a></li>
 <li><a href="../contact/contact.html">Contact</a></li>
-
-
-
-
-
+ <li class="mobile-login">
+  <a href="#"><i class="fas fa-user"></i> Log in</a>
+</li>
     </ul>
-  </nav>
+    
+    <div class="mobile-social-icons">
+    <i class="fab fa-instagram"></i>
+    <i class="fab fa-x-twitter"></i>
+    <i class="fab fa-facebook-f"></i>
+    <i class="fab fa-pinterest-p"></i>
+  </div>
+</nav>
 
 <!-- Header Section -->
 <header class="blog-header">
@@ -126,7 +136,7 @@
         <br>
         
   <h3>Banner</h3>
-  <img src="../../assets/News – Novana (3).jpg" alt="News" class="banner-img" />
+  <img src="../../assets/News.jpg" alt="News" class="banner-img" />
 </div>
 
 

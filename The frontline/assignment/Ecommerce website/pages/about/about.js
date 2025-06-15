@@ -14,6 +14,12 @@ for (let i = 0; i < repeatCount; i++) {
   tickerTrack.appendChild(span);
 }
 
+//Responsive//////////////////////////////////////
+
+function toggleMenu() {
+  const navLinks = document.querySelector('.nav-links');
+  navLinks.classList.toggle('active');
+}
 
 
 //payment
@@ -85,12 +91,12 @@ modal.addEventListener('click', (e) => {
 // Arrow interaction (placeholder)
 const categories = [
   {
-    title: "Savannah nguyen",
+    title: "Savannah Nguyen",
     items: "Salesperson",
     img: "../../assets/product-5.webp"
   },
   {
-    title: "Leslie alexender",
+    title: "Leslie Alexander",
     items: "Salesperson",
     img: "../../assets/team-2.webp"
   },
@@ -102,17 +108,74 @@ const categories = [
 ];
 
 const container = document.getElementById("category-container");
+let currentIndex = 0;
 
-categories.forEach(({ title, items, img }) => {
-  const card = document.createElement("div");
-  card.className = "category-card";
-  card.innerHTML = `
-    <img src="${img}" alt="${title}" />
-    <div class="info">
-      <h3>${title}</h3>
-      <p>${items}</p>
-    </div>
-  `;
-  container.appendChild(card);
-});
+// Function to detect mobile
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+// Render cards
+function renderCards() {
+  container.innerHTML = "";
+
+  // MOBILE: Show only 1 card with swipe
+  if (isMobile()) {
+    const { title, items, img } = categories[currentIndex];
+    const card = document.createElement("div");
+    card.className = "category-card";
+    card.innerHTML = `
+      <img src="${img}" alt="${title}" />
+      <div class="info">
+        <h3>${title}</h3>
+        <p>${items}</p>
+      </div>
+    `;
+    container.appendChild(card);
+
+    // Add swipe support
+    let startX = 0;
+
+    card.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    card.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+
+      if (diff < -30) {
+        // Swipe left
+        currentIndex = (currentIndex + 1) % categories.length;
+        renderCards();
+      } else if (diff > 30) {
+        // Swipe right
+        currentIndex = (currentIndex - 1 + categories.length) % categories.length;
+        renderCards();
+      }
+    });
+
+  } 
+  // DESKTOP: Show all cards
+  else {
+    categories.forEach(({ title, items, img }) => {
+      const card = document.createElement("div");
+      card.className = "category-card";
+      card.innerHTML = `
+        <img src="${img}" alt="${title}" />
+        <div class="info">
+          <h3>${title}</h3>
+          <p>${items}</p>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+}
+
+renderCards();
+
+// Re-render on resize
+window.addEventListener("resize", renderCards);
+
 

@@ -97,6 +97,46 @@ body {
   }
 }
 
+/* ✅ Flash sale hide transition */
+#flashSale {
+  transition: top 0.3s ease, opacity 0.3s ease;
+}
+
+/* ✅ Mobile specific */
+@media (max-width: 600px) {
+     body, html {
+    margin: 0;
+    padding: 0;
+  }
+
+  
+  .flash-sale-container {
+    position: fixed;     /* ⬅️ Add this line */
+    top: 0;              /* ⬅️ Stick to top */
+    width: 100%;         /* ⬅️ Ensure full width */
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .flash-slide {
+    padding-top: 7px;
+    padding-right: 8%;
+    color: black !important;
+  }
+
+  .flash-slide .main-text {
+    display: block;
+    font-weight: normal;
+    color: #f5f5f5;
+  }
+
+  .flash-slide .learn-more {
+    display: block;
+    text-align: center;
+    margin-top: 3px;
+  }
+}
+
 /*Navbar*/
 /* Hide hamburger icon by default (only for desktop) */
 .menu-toggle,
@@ -135,7 +175,7 @@ body {
 .top-left select {
   margin-right: 12px;
   padding: var(--padding-sm);
-  border: 1px solid #ccc;
+  border: none;
 }
 
 .logo {
@@ -153,7 +193,6 @@ body {
 .icons {
   display: flex;
   gap: 20px;
-  padding-right: 11%;
   padding-left: 10px;
 }
 
@@ -230,27 +269,31 @@ nav ul li a {
 }
 
 
-/* -------------------- Mobile View -------------------- */
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* -------------------- Responsive: Mobile View -------------------- */
 @media (max-width: 768px) {
   .top-left {
     display: none;
   }
 
-  .navbar {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%;
-  }
-
+  .menu-toggle,
   .mobile-left {
     display: block;
+    font-size: 24px;
+    cursor: pointer;
   }
 
-  .menu-toggle {
-    display: block;
-    font-size: 26px;
-    cursor: pointer;
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 6%;
   }
 
   .logo {
@@ -260,36 +303,132 @@ nav ul li a {
   }
 
   .logo img {
-    max-width: 160px;
+    max-width: 90px;
+    height: auto;
+    padding-top: 4%;
   }
 
   .icons {
     display: flex;
-    gap: 10px;
-    
+    gap: 5px;
+    padding-top: 3%;
   }
 
+  /* Show only selected icons on mobile (e.g. 🔍 and 🛍️) */
+  .icons .icon:not(:nth-child(1)):not(:nth-child(4)) {
+    display: none;
+  }
   .nav-links {
     display: none;
-    width: 100%;
-    background-color: white;
-    border-top: 1px solid #ccc;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80vw;
+    max-width: 300px;
+    background: #fff;
+    z-index: 2000; /* ⬅️ Lower than navbar and flash sale */
+    padding-top: 60px;
+    padding-bottom: 40px;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
 
-  .nav-links.show {
-    display: block;
+  .nav-links.active {
+    display: flex;
+    transform: translateX(0%);
+    padding-top:0;
+
   }
+
+  .menu-header{
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: #f5f5f5;
+  margin-bottom: 4px;
+  }
+.menu-logo {
+  width: 100px;         /* size as needed */
+  height: auto;
+  object-fit: contain;
+}
+
+/* Close button */
+.close-btn {
+  font-size: 50px;       /* adjust so it matches logo height */
+  cursor: pointer;
+  color: black;
+  background: none;
+  border: none;
+  padding: 5px;
+  line-height: 1;
+}
+
 
   .nav-links ul {
     flex-direction: column;
-    padding: 10px 20px;
-    margin: 0;
-    list-style: none;
+    gap: 10px;
+   padding: 0;
+  margin: 0;
+  padding-top: 5px;
+    text-align: left;
+    font-size: 15px;
   }
 
   .nav-links ul li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* light black line */
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  padding-left: 20px;
+}
+
+  .nav-links ul li:hover::after {
+    display: none;
+  }
+  
+  .mobile-social-icons {
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  gap: 10px;                /* gap between icons */
+  margin-top: auto;         /* push to bottom inside flex column */
+  padding: 10px 0;   /* ↓ yahan 20px tha, ab 10px ya 5px rakh dein */
+  margin-bottom: 0;          /* space above and below */
+}
+
+.mobile-social-icons i {
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.mobile-social-icons i:hover {
+  color: var(--highlight, orange); /* hover effect if you want */
+}
+
+}
+
+/* Hide mobile nav on desktop */
+@media (min-width: 769px) {
+  .nav-link#navMenu {
+    display: none !important;
+  }
+.menu-header{
+  display: none;
+}
+.mobile-menu{
+  display: none;
+}
+ .mobile-social-icons{
+  display: none;
+ }
+ .mobile-login {
+    display: none;
   }
 }
 
@@ -313,6 +452,40 @@ nav ul li a {
   font-size: 18px;
   color: var(--secondary);
   margin: 0;
+}
+
+/* ========== Responsive Styles ========== */
+
+/* Tablet View (max-width: 992px) */
+@media (max-width: 992px) {
+  .contact-header {
+    padding-top: 43% !important;
+    padding-bottom: 40px;
+  }
+
+  .contact-header h1 {
+    font-size: 30px;
+  }
+
+  .contact-header p {
+    font-size: 16px;
+  }
+}
+
+/* Mobile View (max-width: 576px) */
+@media (max-width: 576px) {
+ .contact-header {
+    padding-top: 30%;
+    padding-bottom: 30px;
+  }
+
+  .contact-header h1 {
+    font-size: 24px;
+  }
+
+  .contact-header p {
+    font-size: 14px;
+  }
 }
 
 /*container*/
@@ -411,26 +584,137 @@ nav ul li a {
   display: block;
 }
 
-/* Responsive */
 @media (max-width: 700px) {
   .container1 {
     flex-direction: column;
     padding: 20px;
   }
 
-  .left, .right {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  /* h2 ko bara rakhna */
+  .left h2 {
+    font-size: 24px;
   }
 
-  .btn-send {
-    margin-left: 0;
-    margin-top: 20px;
+  /* Phone, Email, Address chhota font */
+  .contact-info p,
+  .contact-info strong {
+    font-size: 16px;
+  }
+
+  /* Phone and Email side-by-side */
+  .contact-info p:nth-child(1),
+  .contact-info p:nth-child(2) {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    margin: 0;
+  }
+
+  /* Address neeche */
+  .contact-info p:nth-child(3) {
+    display: block;
     width: 100%;
-    text-align: center;
+    margin-top: 10px;
+  }
+
+  .left, .right {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+
+ .btn-send {
+  margin-left: 30%;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #999;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+  /* 👇 Form input styles for mobile view only */
+  form input,
+  form textarea {
+    border: none;
+    /* 👇 Form input styles for mobile view only */
+  form input,
+  form textarea {
+    border: none;
+    border-bottom: 1px solid #999;
+    background: transparent;
+    width: 100%;
+    padding: 6px 0;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+  }
+
+  form input::placeholder,
+  form textarea::placeholder {
+    color: transparent; /* Optional: hide placeholder */
+  }
+
+  form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #333;
+  }
+    background: transparent;
+    width: 100%;
+    padding: 6px 0;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+  }
+
+  form input::placeholder,
+  form textarea::placeholder {
+    color: transparent; /* Optional: hide placeholder */
+  }
+
+  form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #333;
+  }
+   .right {
+    background-color: #fff; /* force white background */
+  }
+
+  form {
+    background-color: #fff; /* ensure form itself is white */
   }
 }
+
+@media (max-width: 700px) {
+.map-container {
+  max-width: 100%;
+  margin: 30px 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: none;
+}
+ .map-container iframe {
+  width: 335px;
+  height: 400px; /* or 250px for small screens */
+  display: block;
+  border: none;
+  box-sizing: border-box;
+  box-shadow: none;
+  padding-left: 5px;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+}
+
 
 /*==== Subscribr CSS =====*/
 .subscribe-section {
@@ -495,7 +779,58 @@ nav ul li a {
   cursor: pointer;
 }
 
+/*=============== Responsive Styles ===============*/
 
+/* Tablet View (<= 992px) */
+@media (max-width: 992px) {
+  .subscribe-content {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .subscribe-content h2 {
+    font-size: 2rem;
+  }
+
+  .subscribe-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .subscribe-form input {
+    font-size: 1rem;
+  }
+
+  .subscribe-form button {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile View (<= 576px) */
+@media (max-width: 576px) {
+  .subscribe-section {
+    padding: 60px 15px;
+    margin-top: 15px;
+  }
+
+  .subscribe-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .subscribe-form {
+    border-bottom: 1.5px solid var(--color-text);
+  }
+
+  .subscribe-form input {
+    font-size: 0.95rem;
+  }
+
+  .subscribe-form button {
+    font-size: 1.2rem;
+  }
+}
 
 /* ======= FOOTER CSS ======= */
 .footer {
@@ -605,24 +940,72 @@ nav ul li a {
   font-size: 1.2rem;
 }
 
-/* Responsive */
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .footer-bottom {
+.footer {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 0;
+}
+
+    .footer-container {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-top: 20px;
+  }
+
+.footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
   }
 
   .social-icons {
-    margin-top: 10px;
+    margin-top: 0.5rem;
+    padding-bottom: 30px;
   }
 
-  .footer-form {
-    width: 100%;
+  .footer-column > *:not(.footer-heading) {
+    display: none;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
   }
 
-  .input-wrapper {
-    max-width: 100%;
+  .footer-heading.active + * {
+    display: block;
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .footer-heading.active ~ * {
+    display: block;
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    margin-bottom: 1rem;
+  }
+
+  .toggle-icon {
+    display: inline-block;
+    
+  }
+
+  .footer-list {
+    display: none;
+  }
+
+  .footer-heading.active + .footer-list {
+    display: block;
   }
 }
+
+
 
